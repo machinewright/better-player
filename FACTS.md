@@ -22,3 +22,12 @@
    https://usabadminton.org/bwf-approves-3x15-scoring-system/
 8. Volleyball side-out: receiving team won 67.4% of 5,438 rallies, 2010 men's World Championship + World League
    (Sanchez-Moreno et al. 2018, RICYDE 52(14):136-147, doi:10.5232/ricyde2018.05204, Table 1 totals).
+9. Wimbledon final-set tiebreak at 12-12 from 2019 (announced Oct 2018); the 2019 final was the first men's major
+   final decided by a final-set tiebreak. (Reviewer's search, 2026-11-25.) 10-point final-set TB still used in 2025:
+   Roland Garros 2025 final Alcaraz d. Sinner 4-6 6-7(4) 6-4 7-6(3) 7-6(10-2). Sky Sports / ATP reports.
+10. ATP doubles: no-ad games, two tiebreak sets, 10-point match tiebreak instead of a third set (ATP rules PDF,
+   atptour.com; Wikipedia "Tennis scoring system"). Grand Slam doubles differ.
+11. Wald & Wolfowitz (1948), Optimum character of the sequential probability ratio test, Ann. Math. Statist. 19(3),
+   326-339, doi:10.1214/aoms/1177730197 (Project Euclid). Wald (1945), Ann. Math. Statist. 16, 117-186.
+12. Pena, Das & Wu, arXiv:2603.02360v2, Table 10: p_A=.6, p_B=.5 -> tennis match win .9517, mean points 220.59
+   (read verbatim by a web-fetch subagent 2026-11-25). Our .95166; their mean = A serving first in every set.

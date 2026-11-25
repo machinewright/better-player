@@ -96,7 +96,7 @@ export function mount(el) {
     // curve and leader lines are all obstacles. A label that finds no room is left out: tooltip and table still name it.
     const boxes = all.map((o) => ({ x0: o.cx - 7, x1: o.cx + 7, y0: o.cy - 7, y1: o.cy + 7 }));
     for (const [cx, cy] of curve) boxes.push({ x0: cx - 3, x1: cx + 3, y0: cy - 3, y1: cy + 3 });
-    const hitsAny = (r) => r.x0 < L + 2 || r.x1 > W - 2 || r.y0 < T - 6 || r.y1 > H - B || boxes.some((q) => r.x0 < q.x1 && r.x1 > q.x0 && r.y0 < q.y1 && r.y1 > q.y0);
+    const hitsAny = (r) => r.x0 < L + 2 || r.x1 > W - 2 || r.y0 < T + 2 || r.y1 > H - B || boxes.some((q) => r.x0 < q.x1 && r.x1 > q.x0 && r.y0 < q.y1 && r.y1 > q.y0);
     const CH = 7.2, h = 15;
     for (const o of [all[all.length - 1], ...all.slice(0, -1)]) {
       const label = o.short + (o.off ? ' →' : ''), w = label.length * CH + 4;
@@ -132,7 +132,7 @@ export function mount(el) {
     readout.innerHTML = `${md}: the better player wins <span class="num">${pct(me.win, 1)}</span> of matches, after
       <span class="num">${me.mean.toFixed(0)}</span> points on average. The best possible format would need
       <span class="num">${me.best.toFixed(0)}</span> for that, so yours is <span class="num">${pct(me.eff)}</span> efficient.
-      ${me.win >= t5.win && me.mean < t5.mean ? `<span class="good">It beats best-of-5 tennis: at least as accurate, with ${(t5.mean - me.mean).toFixed(0)} fewer points.</span>` : `Best-of-5 tennis: ${pct(t5.win, 1)} after ${t5.mean.toFixed(0)} points.`}`;
+      ${me.win >= t5.win && me.mean < t5.mean ? `<span class="good">It beats best-of-5 tennis: at least as accurate, with ${(t5.mean - me.mean).toFixed(0)} fewer points.</span>` : `Not yet better than best-of-5 tennis on both counts (${pct(t5.win, 1)} after ${t5.mean.toFixed(0)} points).`}`;
     table.querySelector('.tablewrap').innerHTML = `<table class="data"><thead><tr><th style="text-align:left">format</th><th>better player wins</th><th>points, average</th><th>best possible</th><th>efficiency</th></tr></thead><tbody>${all.map((o) => `<tr><td style="text-align:left">${o.name}</td><td>${pct(o.win, 1)}</td><td>${o.mean.toFixed(0)}</td><td>${o.best.toFixed(0)}</td><td>${pct(o.eff)}</td></tr>`).join('')}</tbody></table>`;
   }
   let raf = 0; const redraw = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
