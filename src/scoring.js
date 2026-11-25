@@ -31,9 +31,9 @@ function race(f, p) {
   const u = dist(unit, p), t = tb ? dist(tb.unit, p) : null, d = decider ? dist(decider, p) : null;
   const A = new Float64Array(MAXLEN), B = new Float64Array(MAXLEN);
   let lost = 0;
-  // State (a, b) -> length distribution so far. With by = 2 and no cap, scores past (to-1, to-1) repeat by
-  // difference, so they are folded back to keep the state space finite.
-  const norm = (a, b) => { if (by === 2 && cap === Infinity && !tb && a >= to - 1 && b >= to - 1) { const k = Math.min(a, b) - (to - 1); a -= k; b -= k; } return a + ',' + b; };
+  // State (a, b) -> length distribution so far. With a winning margin and no cap, once both players have to-1 units
+  // only the difference matters, so those states are folded back to keep the state space finite.
+  const norm = (a, b) => { if (by >= 2 && cap === Infinity && !tb && a >= to - 1 && b >= to - 1) { const k = Math.min(a, b) - (to - 1); a -= k; b -= k; } return a + ',' + b; };
   const won = (a, b) => (a >= to && a - b >= by) || a >= cap || (tb && a === tb.at + 1 && b === tb.at);
   let layer = new Map([['0,0', Object.assign(new Float64Array(1), { 0: 1 })]]);
   for (let round = 0; layer.size && round < 100000; round++) {
@@ -104,8 +104,36 @@ F.ttGame = R(11, 'point', { by: 2 });
 F.ttBo5 = R(3, F.ttGame);
 F.ttBo7 = R(4, F.ttGame);
 F.badmintonGame = R(21, 'point', { by: 2, cap: 30 });
-F.badmintonBo3 = R(2, F.badmintonGame);
+F.badmintonBo3 = R(2, F.badmintonGame); // until 3 January 2027
+F.badminton15 = R(15, 'point', { by: 2, cap: 21 }); // BWF 3x15, from 4 January 2027
+F.badminton15Bo3 = R(2, F.badminton15);
 F.vbSet = R(25, 'point', { by: 2 });
 F.vbBo5 = R(3, F.vbSet, { decider: R(15, 'point', { by: 2 }) });
 F.squashBo5 = R(3, R(11, 'point', { by: 2 }));
 F.race21 = R(21, 'point');
+
+// Fast exact P(A wins) and mean length, without the length distribution (for sliders). Mean lengths add up by
+// Wald's identity: the units are independent and whether play goes on depends only on units already played.
+const qcache = new WeakMap();
+export function quick(f, p) {
+  if (f === 'point') return { win: p, mean: 1 };
+  let m = qcache.get(f); if (!m) qcache.set(f, m = new Map()); if (m.has(p)) return m.get(p);
+  const { to, by = 1, cap = Infinity, unit, tb = null, decider = null } = f;
+  const u = quick(unit, p), t = tb && quick(tb.unit, p), d = decider && quick(decider, p);
+  const memo = new Map();
+  const g = (a, b) => {
+    if ((a >= to && a - b >= by) || a >= cap) return [1, 0];
+    if ((b >= to && b - a >= by) || b >= cap) return [0, 0];
+    if (tb && a === tb.at && b === tb.at) return [t.win, t.mean];
+    if (by >= 2 && cap === Infinity && !tb && a >= to - 1 && b >= to - 1) { // only the lead matters now: gambler's ruin
+      const N = 2 * by, i = a - b + by, w = u.win, q = 1 - w;
+      if (Math.abs(w - 0.5) < 1e-12) return [i / N, i * (N - i) * u.mean];
+      const r = q / w, pw = (1 - r ** i) / (1 - r ** N);
+      return [pw, (i / (q - w) - (N / (q - w)) * pw) * u.mean]; }
+    const k = a * 4096 + b; if (memo.has(k)) return memo.get(k);
+    const c = d && by === 1 && a === to - 1 && b === to - 1 ? d : u;
+    const [w1, e1] = g(a + 1, b), [w2, e2] = g(a, b + 1);
+    const r = [c.win * w1 + (1 - c.win) * w2, c.mean + c.win * e1 + (1 - c.win) * e2]; memo.set(k, r); return r;
+  };
+  const [win, mean] = g(0, 0); const r = { win, mean }; m.set(p, r); return r;
+}

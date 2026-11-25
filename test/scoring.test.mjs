@@ -56,3 +56,23 @@ test('lead-by-k matches its own exact DP', () => {
     const l = leadBy(k, p); assert.ok(Math.abs(l.win - win) < 1e-12); assert.ok(Math.abs(l.mean - mean) < 1e-9);
   }
 });
+
+test('quick() equals the full distribution engine', async () => {
+  const { quick } = await import('../src/scoring.js');
+  for (const f of Object.values(F)) for (const p of [0.5, 0.53, 0.6, 0.71]) {
+    const a = quick(f, p), b = stats(f, p);
+    assert.ok(Math.abs(a.win - b.win) < 1e-10, `win ${a.win} ${b.win}`); assert.ok(Math.abs(a.mean - b.mean) < 1e-8 * b.mean, `mean ${a.mean} ${b.mean}`);
+  }
+});
+
+test('any winning margin: "first to 1, win by k" is lead by k; long margins agree across engines', async () => {
+  const { quick } = await import('../src/scoring.js');
+  for (const p of [0.5, 0.55, 0.6]) for (const k of [1, 2, 3, 7, 16]) {
+    const f = { to: 1, by: k, unit: 'point' }, a = quick(f, p), b = stats(f, p), l = leadBy(k, p);
+    assert.ok(Math.abs(a.win - l.win) < 1e-10 && Math.abs(b.win - l.win) < 1e-10, `win k=${k}`);
+    if (p !== 0.5) assert.ok(Math.abs(a.mean - l.mean) < 1e-8 * l.mean && Math.abs(b.mean - l.mean) < 1e-6 * l.mean, `mean k=${k} ${a.mean} ${b.mean} ${l.mean}`);
+    else assert.ok(Math.abs(a.mean - k * k) < 1e-8 && Math.abs(b.mean - k * k) < 1e-6, `mean k=${k} at p=.5`);
+  }
+  const g = { to: 11, by: 3, unit: { to: 4, by: 2, unit: 'point' } };
+  for (const p of [0.5, 0.56]) { const a = quick(g, p), b = stats(g, p); assert.ok(Math.abs(a.win - b.win) < 1e-10); assert.ok(Math.abs(a.mean - b.mean) < 1e-8 * b.mean); }
+});

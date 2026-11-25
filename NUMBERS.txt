@@ -1,0 +1,62 @@
+
+== p = 0.52
+tennisGame       55.0% after 6.7 pts, best 6.2, eff 92.6%
+tiebreak7        56.3% after 11.7 pts, best 9.9, eff 84.8%
+tiebreak10       57.4% after 17.0 pts, best 13.7, eff 80.6%
+tennisSet        64.0% after 65.1 pts, best 50.4, eff 77.4%
+advantageSet     64.4% after 66.8 pts, best 53.5, eff 80.1%
+tennisBo3        70.5% after 160.2 pts, best 111.2, eff 69.4%
+tennisBo5        75.0% after 261.2 pts, best 171.1, eff 65.5%
+noAdGame         54.4% after 5.8 pts, best 4.8, eff 82.3%
+noAdSet          62.4% after 56.4 pts, best 39.3, eff 69.7%
+noAdBo3          65.9% after 120.8 pts, best 65.2, eff 54.0%
+ttGame           57.7% after 18.8 pts, best 15.0, eff 79.6%
+ttBo5            64.2% after 76.8 pts, best 52.0, eff 67.7%
+ttBo7            66.5% after 107.9 pts, best 70.3, eff 65.2%
+badmintonGame    60.4% after 37.1 pts, best 27.5, eff 74.1%
+badmintonBo3     65.4% after 92.0 pts, best 61.2, eff 66.5%
+badminton15      58.9% after 26.0 pts, best 20.0, eff 76.7%
+badminton15Bo3   63.2% after 64.7 pts, best 44.6, eff 68.9%
+vbSet            61.3% after 44.6 pts, best 32.5, eff 72.9%
+vbBo5            69.7% after 174.2 pts, best 102.2, eff 58.7%
+squashBo5        64.2% after 76.8 pts, best 52.0, eff 67.7%
+race21           60.2% after 36.7 pts, best 26.2, eff 71.3%
+
+== p = 0.55
+tennisGame       62.3% after 6.7 pts, best 6.2, eff 92.4%
+tiebreak7        65.4% after 11.6 pts, best 9.8, eff 84.4%
+tiebreak10       67.9% after 16.8 pts, best 13.4, eff 79.9%
+tennisSet        81.5% after 61.6 pts, best 46.6, eff 75.6%
+advantageSet     82.2% after 62.8 pts, best 49.0, eff 78.0%
+tennisBo3        91.0% after 141.8 pts, best 94.6, eff 66.7%
+tennisBo5        95.3% after 221.1 pts, best 136.2, eff 61.6%
+noAdGame         60.8% after 5.8 pts, best 4.8, eff 82.1%
+noAdSet          78.6% after 54.1 pts, best 37.0, eff 68.3%
+noAdBo3          84.6% after 113.9 pts, best 58.8, eff 51.6%
+ttGame           68.7% after 18.6 pts, best 14.6, eff 78.8%
+ttBo5            81.9% after 72.8 pts, best 48.0, eff 66.0%
+ttBo7            85.6% after 100.7 pts, best 63.3, eff 62.9%
+badmintonGame    74.6% after 36.5 pts, best 26.4, eff 72.3%
+badmintonBo3     83.9% after 86.8 pts, best 55.8, eff 64.3%
+badminton15      71.3% after 25.7 pts, best 19.4, eff 75.5%
+badminton15Bo3   80.0% after 61.8 pts, best 41.6, eff 67.3%
+vbSet            76.4% after 43.7 pts, best 30.9, eff 70.7%
+vbBo5            90.1% after 159.9 pts, best 88.2, eff 55.2%
+squashBo5        81.9% after 72.8 pts, best 48.0, eff 66.0%
+race21           74.1% after 36.2 pts, best 25.2, eff 69.7%
+
+lead by 16 at .55: 96.1 147.6 | at p=.5 mean 256
+tennis bo5 p=0.5: mean 271.8 sd 61.7 median 272 p99 407
+tennis bo5 p=0.55: mean 221.1 sd 58.2 median 210 p99 374
+p=0.5 lead by 16: mean 256.0 median 194 p99 1004 over400 18.41% | tennis bo5 p99 407 over400 1.38% max-ish 2870
+p=0.55 lead by 16: mean 147.6 median 118 p99 516 over400 3.11% | tennis bo5 p99 374 over400 0.25% max-ish 2826
+fewer-points winner tennisBo5 p=0.5: 6.76% (1e6 sims, se ~0.03)
+fewer-points winner tennisBo3 p=0.5: 5.19% (1e6 sims, se ~0.03)
+fewer-points winner tennisBo3 p=0.52: 4.46% (1e6 sims, se ~0.03)
+fewer-points winner vbBo5 p=0.5: 10.55% (1e6 sims, se ~0.03)
+fewer-points winner ttBo7 p=0.5: 7.41% (1e6 sims, se ~0.03)
+fewer-points winner badmintonBo3 p=0.5: 6.72% (1e6 sims, se ~0.03)
+fewer-points winner badminton15Bo3 p=0.5: 5.79% (1e6 sims, se ~0.03)
+
+serve model, Pena et al. Table 10 (pa .6, pb .5, bo5, final 10-pt TB, A serves first every set as they assume):
+real alternation: [ 0.9516607045559301, 221.47692701150928 ]
