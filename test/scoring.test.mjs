@@ -76,3 +76,10 @@ test('any winning margin: "first to 1, win by k" is lead by k; long margins agre
   const g = { to: 11, by: 3, unit: { to: 4, by: 2, unit: 'point' } };
   for (const p of [0.5, 0.56]) { const a = quick(g, p), b = stats(g, p); assert.ok(Math.abs(a.win - b.win) < 1e-10); assert.ok(Math.abs(a.mean - b.mean) < 1e-8 * b.mean); }
 });
+
+test('serve-aware tennis model reproduces Pena, Das and Wu (2026), Table 10', async () => {
+  const T = await import('../proto/tennis.mjs');
+  const [w] = T.match(0.6, 0.5, 5, 7, 10); assert.equal(w.toFixed(4), '0.9517'); // their 0.9517
+  // their mean 220.59 assumes A serves first in every set; real alternation gives about 221.5 (Monte Carlo agrees)
+  const [, e] = T.match(0.6, 0.5, 5, 7, 10); assert.ok(e > 221 && e < 222);
+});
