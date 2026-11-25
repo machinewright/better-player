@@ -129,7 +129,10 @@ played the new format is slightly <em>more</em> efficient (67% against 64%). Par
 <p>Points are not coin tosses with a fixed bias. In tennis the server wins most points: WTA players win about 55% of
 their service points.<sup><a href="#s6">6</a></sup> In elite men's volleyball the
 receiving team wins about two rallies in three.<sup><a href="#s7">7</a></sup> Formats that alternate serve interact
-with this, and Miles's paper treats that case. I checked my serve-aware tennis model against a published one: with
+with this, and Miles's paper treats that case. In tennis a strong serve makes the match a slightly worse test. Keep
+the better player at 55% of all points, but let each server win 65% on serve (the better player wins 70% of points on
+serve and 40% on return): best of three then picks the better player 89.1% of the time instead of 91.0%, and takes
+144.3 points instead of 141.8. Most games become holds, and a hold says little about who is better. I checked my serve-aware tennis model against a published one: with
 the servers winning 60% and 50% of their points, it gives the stronger server a 95.17% chance of winning a best-of-5
 match, the same as Peña, Das and Wu.<sup><a href="#s8">8</a></sup> Players also tire, tighten up and change tactics
 with the score, and none of that is here. The comparisons on this page are between formats, holding everything else

@@ -60,3 +60,6 @@ fewer-points winner badminton15Bo3 p=0.5: 5.79% (1e6 sims, se ~0.03)
 
 serve model, Pena et al. Table 10 (pa .6, pb .5, bo5, final 10-pt TB, A serves first every set as they assume):
 real alternation: [ 0.9516607045559301, 221.47692701150928 ]
+serve-effect bo3 p=0.55 servers 0.55/0.45: 91.0% after 141.8 pts
+serve-effect bo3 p=0.55 servers 0.65/0.55: 90.1% after 142.5 pts
+serve-effect bo3 p=0.55 servers 0.70/0.60: 89.1% after 144.3 pts
